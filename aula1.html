@@ -138,6 +138,54 @@ body {
 .ref-btn:hover { background: var(--c1); color: #fdf8f6; }
 .ref-btn svg { flex-shrink: 0; }
 
+/* ── ACCORDION ── */
+.acc-hint {
+  width: 100%; max-width: 720px;
+  font-size: 12px; color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 6px;
+}
+.acc-hint::before {
+  content: '';
+  display: inline-block; width: 16px; height: 1px;
+  background: var(--border); flex-shrink: 0;
+}
+.accordion { width: 100%; max-width: 720px; }
+.acc-item { border-bottom: 1px solid var(--border); }
+.acc-item:first-child { border-top: 1px solid var(--border); }
+.acc-trigger {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 17px 4px; cursor: pointer; gap: 16px;
+  transition: color .15s;
+  user-select: none;
+}
+.acc-trigger:hover .acc-criterion { color: var(--c1); }
+.acc-criterion {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  transition: color .15s;
+}
+.acc-icon {
+  font-size: 20px; font-weight: 300; color: var(--c1);
+  line-height: 1; transition: transform .25s ease; flex-shrink: 0;
+}
+.acc-item.open .acc-icon { transform: rotate(45deg); }
+.acc-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  padding: 0 4px; max-height: 0; overflow: hidden;
+  transition: max-height .32s ease, padding-bottom .32s ease;
+}
+.acc-item.open .acc-body { max-height: 180px; padding-bottom: 20px; }
+.acc-col {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.acc-col-tag {
+  font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 7px;
+}
+.acc-col-tag.olap { color: var(--c1); }
+.acc-col-tag.oltp { color: var(--c2); }
+.acc-col-text { font-size: 13px; line-height: 1.55; color: var(--text); }
+
 /* ── TABLE ── */
 .tbl { width: 100%; max-width: 760px; border-collapse: collapse; }
 .tbl th { text-align: left; font-size: 9.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); padding: 10px 14px; border-bottom: 1px solid var(--border); }
@@ -218,7 +266,7 @@ body {
   <div class="t-body">
     <div class="t-title">Três origens.<br><em>Todos os dados.</em></div>
     <div class="diagram">
-      <svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <svg viewBox="0 0 700 342" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
         <line x1="350" y1="82" x2="152" y2="252" stroke="#dfc9c0" stroke-width="1.5" stroke-dasharray="4 4"/>
         <line x1="350" y1="82" x2="548" y2="252" stroke="#dfc9c0" stroke-width="1.5" stroke-dasharray="4 4"/>
         <line x1="152" y1="252" x2="548" y2="252" stroke="#dfc9c0" stroke-width="1.5" stroke-dasharray="4 4"/>
@@ -383,6 +431,148 @@ body {
     </div>
     <div class="pg-nav">
       <button class="pn-btn" onclick="show('p2')">← Dado × Informação</button>
+      <button class="pn-btn pn-fwd" onclick="show('p3b')">OLAP vs. OLTP →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     P3B — OLAP vs. OLTP COMPARATIVO
+══════════════════════════════════════ -->
+<div id="p3b" class="page">
+  <nav class="t-nav">
+    <button class="back" onclick="show('menu')">← Menu</button>
+    <span class="t-label">03 · Aprofundamento — OLAP vs. OLTP</span>
+  </nav>
+  <div class="t-body">
+    <div class="t-title">Sete critérios.<br><em>Duas lógicas.</em></div>
+    <p class="acc-hint">Clique em cada critério para revelar a comparação.</p>
+
+    <div class="accordion">
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Finalidade</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Analisar grandes volumes de dados para apoiar a tomada de decisões.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Gerenciar e processar transações em tempo real.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Fonte de dados</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Dados históricos e agregados de várias fontes.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Dados transacionais e em tempo real de uma única fonte.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Estrutura de dados</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Bancos de dados multidimensionais (cubos) ou relacionais.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Bancos de dados relacionais.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Modelo de dados</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Esquema em estrela, esquema de floco de neve ou outros modelos analíticos.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Modelos normalizados ou desnormalizados.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Volume de dados</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Grandes requisitos de armazenamento — terabytes (TB) e petabytes (PB).</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Requisitos comparativamente menores — gigabytes (GB).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Tempo de resposta</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Tempos de resposta mais longos — normalmente segundos ou minutos.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Tempos de resposta mais curtos — normalmente milissegundos.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-criterion">Aplicativos de exemplo</span>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-col">
+            <div class="acc-col-tag olap">OLAP</div>
+            <div class="acc-col-text">Analisar tendências, prever comportamento do cliente e identificar lucratividade.</div>
+          </div>
+          <div class="acc-col">
+            <div class="acc-col-tag oltp">OLTP</div>
+            <div class="acc-col-text">Processar pagamentos, gerenciar dados de clientes e processar pedidos.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pg-nav">
+      <button class="pn-btn" onclick="show('p3')">← Dado Operacional</button>
       <button class="pn-btn pn-fwd" onclick="show('p4')">Jornada dos Dados →</button>
     </div>
   </div>
@@ -455,7 +645,7 @@ body {
       </div>
     </div>
     <div class="pg-nav">
-      <button class="pn-btn" onclick="show('p3')">← Dado Operacional</button>
+      <button class="pn-btn" onclick="show('p3b')">← OLAP vs. OLTP</button>
       <button class="pn-btn pn-fwd" onclick="show('p5')">Banco de Dados →</button>
     </div>
   </div>
@@ -658,6 +848,15 @@ body {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
+  }
+
+  function toggleAcc(trigger) {
+    const item = trigger.closest('.acc-item');
+    const wasOpen = item.classList.contains('open');
+    // fecha todos
+    document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
+    // abre o clicado (se não estava aberto)
+    if (!wasOpen) item.classList.add('open');
   }
 </script>
 </body>
